@@ -1,10 +1,13 @@
 // Colors
 $primary-color: #c6f2fe;
 $secondary-color: #63dafb;
-$secondary-darker: #14bdec;
+$secondary-darker-color: #14bdec;
 $bg-card-color: white;
-$text-primary: black;
+$bg-btn-color: white;
+$text-primary-color: black;
+$text-inverse-color: white;
 $danger-color: red;
+$positive-color: #08a10b;
 
 // Spacing
 $spacing-xs: 4px;
@@ -12,10 +15,18 @@ $spacing-s: 8px;
 $spacing-m: 12px;
 $spacing-l: 16px;
 $spacing-xl: 20px;
+$spacing-2xl: 40px;
+
+// Radius
+$radius-l: 24px;
 
 // Fonts
 $font-size-m: 14px;
+$font-size-l: 28px;
 
 // Padding
 $spacing-s: 10px;
 $padding-m: 20px;
+
+// Breakpoints
+$breakpoint-tablet: 1240px;

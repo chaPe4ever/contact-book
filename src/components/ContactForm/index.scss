@@ -1,0 +1,55 @@
+.add-contact-container {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-m;
+  background-color: $bg-card-color;
+  padding: $spacing-2xl;
+
+  .contact-form-inputs-container {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-m;
+
+    input {
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+    }
+  }
+  .choose-avatar-container {
+    .chosen-avatar {
+      display: inline-block;
+      position: relative;
+      img {
+        width: 100px;
+        object-fit: cover;
+        height: 100px;
+        border-radius: 50%;
+      }
+      button {
+        position: absolute;
+        top: 0;
+        right: 0;
+        color: $text-inverse-color;
+        background: none;
+        width: $spacing-xl;
+        height: $spacing-xl;
+        background-color: $secondary-darker-color;
+        border-radius: 50%;
+        border: none;
+        padding: 0;
+        cursor: pointer;
+      }
+    }
+  }
+
+  .add-contact-controlls-container {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+
+    .positive-button {
+      margin-left: $spacing-m;
+    }
+  }
+}
