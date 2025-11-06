@@ -3,7 +3,7 @@
   background-color: $bg-card-color;
   margin-bottom: $spacing-xl;
   padding: $spacing-xl;
-  width: 100%;
+  border-radius: $radius-m;
 
   .contact-header-container {
     display: flex;
@@ -21,6 +21,8 @@
   }
 
   .contact-togglable {
+    margin-top: $spacing-xl;
+
     .contact-content-container {
       margin-bottom: $spacing-xl;
     }

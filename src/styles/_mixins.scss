@@ -13,3 +13,15 @@
   cursor: pointer;
   font-size: $font-size-m;
 }
+
+@mixin input-base {
+  border: none;
+  border-bottom: 1px solid $primary-color;
+  background-color: $bg-card-color;
+  color: $text-primary-color;
+  appearance: none;
+  outline: none;
+  margin: 0;
+  padding: $spacing-s;
+  border-radius: 0;
+}

@@ -1,13 +1,14 @@
 import Button from "../Button/Button";
 import "./index.scss";
 import { useState } from "react";
+import DefaultAvatar from "../../assets/default-avatar.svg";
 
-const ContactForm = ({ onSubmitCb, handleCancel }) => {
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [address, setAddress] = useState("");
-  const [phone, setPhone] = useState("");
-  const [avatarFile, setAvatarFile] = useState(null);
+const ContactForm = ({ onSubmitCb, handleCancel, contact = {} }) => {
+  const [firstName, setFirstName] = useState(contact.firstName ?? "");
+  const [lastName, setLastName] = useState(contact.lastName ?? "");
+  const [address, setAddress] = useState(contact.address ?? "");
+  const [phone, setPhone] = useState(contact.phone ?? "");
+  const [avatarFile, setAvatarFile] = useState(contact.avatar);
 
   function handleChange(e) {
     e.preventDefault();
@@ -44,23 +45,33 @@ const ContactForm = ({ onSubmitCb, handleCancel }) => {
 
   function handleSubmit(e) {
     e.preventDefault();
-    // TODO Add validation
+    // Add extra validation check if required
 
     const formData = new FormData(e.target);
 
     if (avatarFile) {
-      formData.set("file", avatarFile);
+      formData.set("avatar", avatarFile);
     }
 
-    onSubmitCb(Object.fromEntries(formData.entries()));
+    const formObj = Object.fromEntries(formData.entries());
+
+    onSubmitCb(formObj);
+    clearFields();
   }
 
-  //   function onClearState
+  function clearFields() {
+    setFirstName(null);
+    setLastName(null);
+    setAddress(null);
+    setPhone(null);
+    setAvatarFile(null);
+  }
 
   return (
     <form onSubmit={handleSubmit} className="add-contact-container">
       <div className="contact-form-inputs-container">
         <input
+          className="primary-input"
           type="text"
           required
           name="firstName"
@@ -69,6 +80,7 @@ const ContactForm = ({ onSubmitCb, handleCancel }) => {
           onChange={handleChange}
         />
         <input
+          className="primary-input"
           type="text"
           required
           name="lastName"
@@ -77,6 +89,7 @@ const ContactForm = ({ onSubmitCb, handleCancel }) => {
           onChange={handleChange}
         />
         <input
+          className="primary-input"
           type="text"
           required
           name="address"
@@ -85,6 +98,7 @@ const ContactForm = ({ onSubmitCb, handleCancel }) => {
           onChange={handleChange}
         />
         <input
+          className="primary-input"
           type="tel"
           required
           name="phone"
@@ -113,7 +127,13 @@ const ContactForm = ({ onSubmitCb, handleCancel }) => {
         {avatarFile && (
           <div className="chosen-avatar">
             <img
-              src={URL.createObjectURL(avatarFile)}
+              src={
+                avatarFile
+                  ? typeof avatarFile === "string"
+                    ? avatarFile
+                    : URL.createObjectURL(avatarFile)
+                  : DefaultAvatar
+              }
               alt="Chosen avatar"
               style={{ display: "block" }}
             />
