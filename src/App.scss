@@ -20,12 +20,3 @@
   @include button-base;
   background-color: $positive-color;
 }
-
-.primary-input {
-  @include input-base;
-
-  &:focus {
-    border-bottom: 2px solid $secondary-darker-color; // Can change color on focus
-    outline: none;
-  }
-}

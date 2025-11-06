@@ -41,16 +41,15 @@ const ContactBook = () => {
   }
 
   function handleAddNewContact(formData) {
+    console.log(formData);
     const newObj = {
+      ...formData,
       id: unique_id,
-      firstName: formData.firstName,
-      lastName: formData.lastName,
-      phone: formData.phone,
-      address: formData.address,
-      avatar:
-        formData.file && formData.file.size > 0
-          ? URL.createObjectURL(formData.file)
-          : DefaultAvatar,
+      avatar: formData.avatar
+        ? typeof formData.avatar === "string"
+          ? formData.avatar
+          : URL.createObjectURL(formData.avatar)
+        : DefaultAvatar,
     };
     setContacts([...contacts, newObj]);
     setIsAddContactFormVisible(!isAddContactFromVisible);
@@ -75,21 +74,23 @@ const ContactBook = () => {
       <div className="contact-book-content">
         <h1>Contact Book</h1>
 
-        <div
-          className="contact-book-add-button"
-          onClick={handleAddContactVisibility}
-        >
-          {!isAddContactFromVisible && <Button iconTxt="+" />}
-        </div>
+        {!isAddContactFromVisible && (
+          <div
+            className="contact-book-add-button"
+            onClick={handleAddContactVisibility}
+          >
+            <Button iconTxt="+" />
+          </div>
+        )}
 
-        <div className="contact-book-add-form">
-          {isAddContactFromVisible && (
+        {isAddContactFromVisible && (
+          <div className="contact-book-add-form">
             <ContactForm
               handleCancel={handleAddContactVisibility}
               onSubmitCb={handleAddNewContact}
             />
-          )}
-        </div>
+          </div>
+        )}
 
         {contacts.map((contact) => (
           <div className="contact-book-contacts">

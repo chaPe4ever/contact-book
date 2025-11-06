@@ -2,8 +2,9 @@
   display: flex;
   flex-direction: column;
   gap: $spacing-m;
+  border-radius: $radius-m;
   background-color: $bg-card-color;
-  padding: $spacing-2xl;
+  padding: $spacing-2xl $spacing-xl $spacing-xl $spacing-xl;
 
   .contact-form-inputs-container {
     display: flex;
@@ -12,13 +13,16 @@
   }
 
   .choose-avatar-container {
-    margin-top: $spacing-l;
+    margin: $spacing-l 0;
+    label {
+      color: $text-inverse-color;
+    }
     .chosen-avatar {
       display: inline-block;
       position: relative;
       img {
-        width: 100px;
-        height: 100px;
+        width: 120px;
+        height: 120px;
         object-fit: cover;
         border-radius: 50%;
       }
@@ -28,13 +32,17 @@
         right: 0;
         color: $text-inverse-color;
         background: none;
-        width: $spacing-xl;
-        height: $spacing-xl;
-        background-color: $secondary-darker-color;
+        width: $spacing-2xl;
+        height: $spacing-2xl;
+        background-color: rgba($secondary-darker-color, 0.7);
         border-radius: 50%;
         border: none;
         padding: 0;
         cursor: pointer;
+
+        &:hover {
+          border: 1px solid $secondary-darker-color;
+        }
       }
     }
   }

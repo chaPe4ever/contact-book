@@ -2,6 +2,7 @@ import Button from "../Button/Button";
 import "./index.scss";
 import { useState } from "react";
 import DefaultAvatar from "../../assets/default-avatar.svg";
+import FloatingInput from "../Input/FloatingInput";
 
 const ContactForm = ({ onSubmitCb, handleCancel, contact = {} }) => {
   const [firstName, setFirstName] = useState(contact.firstName ?? "");
@@ -35,6 +36,10 @@ const ContactForm = ({ onSubmitCb, handleCancel, contact = {} }) => {
           files[0].type === "image/svg+xml"
         ) {
           setAvatarFile(files[0]);
+        } else {
+          alert(
+            "The type of file you've selected is not suported. Please provide one of: jpeg, png or svg"
+          );
         }
 
         break;
@@ -70,41 +75,36 @@ const ContactForm = ({ onSubmitCb, handleCancel, contact = {} }) => {
   return (
     <form onSubmit={handleSubmit} className="add-contact-container">
       <div className="contact-form-inputs-container">
-        <input
-          className="primary-input"
-          type="text"
-          required
+        <FloatingInput
+          label="First name:"
           name="firstName"
           value={firstName}
-          placeholder="First name:"
           onChange={handleChange}
-        />
-        <input
-          className="primary-input"
-          type="text"
           required
+        />
+
+        <FloatingInput
+          label="Last name:"
           name="lastName"
           value={lastName}
-          placeholder="Last name:"
           onChange={handleChange}
-        />
-        <input
-          className="primary-input"
-          type="text"
           required
+        />
+
+        <FloatingInput
+          label="Address:"
           name="address"
           value={address}
-          placeholder="Address:"
           onChange={handleChange}
         />
-        <input
-          className="primary-input"
-          type="tel"
-          required
+
+        <FloatingInput
+          label="Phone number:"
           name="phone"
+          type="tel"
           value={phone}
-          placeholder="Phone number:"
           onChange={handleChange}
+          required
         />
       </div>
 

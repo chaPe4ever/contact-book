@@ -63,10 +63,11 @@ const Contact = ({ data, onDeleteContactCb, onEditContactCb }) => {
         <img
           className="contact-header-arrow"
           src={isCardExpanded ? arrowUpUrl : arrowDownUrl}
-          style={{ height: 30, width: 30 }}
+          style={{ height: 34, width: 34 }}
           onClick={handleToggleContactDetails}
         />
       </header>
+
       {isCardExpanded && !isEditFormVisible && (
         <div className="contact-togglable">
           <section className="contact-content-container">
@@ -95,11 +96,13 @@ const Contact = ({ data, onDeleteContactCb, onEditContactCb }) => {
       )}
 
       {isEditFormVisible && (
-        <ContactForm
-          onSubmitCb={handleEditContact}
-          handleCancel={handleHideEditForm}
-          contact={contact}
-        />
+        <div className="contact-content-form-container">
+          <ContactForm
+            onSubmitCb={handleEditContact}
+            handleCancel={handleHideEditForm}
+            contact={contact}
+          />
+        </div>
       )}
     </div>
   );
