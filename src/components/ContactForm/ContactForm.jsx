@@ -1,10 +1,14 @@
-import Button from "../Button/Button";
 import "./index.scss";
 import { useState } from "react";
-import DefaultAvatar from "../../assets/default-avatar.svg";
 import FloatingInput from "../Input/FloatingInput";
+import { getAvatarFromPath } from "../../utils/utils";
 
-const ContactForm = ({ onSubmitCb, handleCancel, contact = {} }) => {
+const ContactForm = ({
+  onSubmitCb,
+  handleCancel,
+  contact = {},
+  className = "",
+}) => {
   const [firstName, setFirstName] = useState(contact.firstName ?? "");
   const [lastName, setLastName] = useState(contact.lastName ?? "");
   const [address, setAddress] = useState(contact.address ?? "");
@@ -14,7 +18,6 @@ const ContactForm = ({ onSubmitCb, handleCancel, contact = {} }) => {
   function handleChange(e) {
     e.preventDefault();
     const { name, value, files } = e.target;
-    console.log(name, value, files);
     switch (name) {
       case "firstName":
         setFirstName(value);
@@ -60,7 +63,7 @@ const ContactForm = ({ onSubmitCb, handleCancel, contact = {} }) => {
 
     const formObj = Object.fromEntries(formData.entries());
 
-    onSubmitCb(formObj);
+    onSubmitCb({ id: contact.id, ...formObj });
     clearFields();
   }
 
@@ -73,7 +76,10 @@ const ContactForm = ({ onSubmitCb, handleCancel, contact = {} }) => {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="add-contact-container">
+    <form
+      onSubmit={handleSubmit}
+      className={`add-contact-container ${className}`}
+    >
       <div className="contact-form-inputs-container">
         <FloatingInput
           label="First name:"
@@ -127,13 +133,7 @@ const ContactForm = ({ onSubmitCb, handleCancel, contact = {} }) => {
         {avatarFile && (
           <div className="chosen-avatar">
             <img
-              src={
-                avatarFile
-                  ? typeof avatarFile === "string"
-                    ? avatarFile
-                    : URL.createObjectURL(avatarFile)
-                  : DefaultAvatar
-              }
+              src={getAvatarFromPath(avatarFile)}
               alt="Chosen avatar"
               style={{ display: "block" }}
             />

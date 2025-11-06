@@ -1,39 +1,23 @@
-import { useState } from "react";
-
 import "./index.scss";
-import JohnAvatar from "../../assets/John.png";
-import JaneAvatar from "../../assets/Jane.png";
-import DefaultAvatar from "../../assets/default-avatar.svg";
+import { useEffect, useState } from "react";
 import Contact from "../Contact/Contact";
 import Button from "../Button/Button";
 import ContactForm from "../ContactForm/ContactForm";
 
-import { v4 as uuidv4 } from "uuid";
-
-const unique_id = uuidv4();
-
-const initialContacts = [
-  {
-    id: 1,
-    firstName: "John",
-    lastName: "Doe",
-    address: "Bahnhofstrasse 2, Zurich",
-    phone: "0791112233",
-    avatar: JohnAvatar,
-  },
-  {
-    id: 2,
-    firstName: "Jane",
-    lastName: "Doe",
-    address: "Dorfplatz 5, Basel",
-    phone: "0791112244",
-    avatar: JaneAvatar,
-  },
-];
+import { getAvatarFromPath, getUid } from "../../utils/utils";
+import { fetchContacts } from "../../utils/api";
 
 const ContactBook = () => {
-  const [contacts, setContacts] = useState(initialContacts);
+  const [contacts, setContacts] = useState(null);
   const [isAddContactFromVisible, setIsAddContactFormVisible] = useState(false);
+
+  useEffect(() => {
+    const fetchContactsAsync = async () => {
+      const contacts = await fetchContacts();
+      setContacts(contacts);
+    };
+    fetchContactsAsync();
+  }, []);
 
   function handleAddContactVisibility(e) {
     e.preventDefault();
@@ -41,15 +25,10 @@ const ContactBook = () => {
   }
 
   function handleAddNewContact(formData) {
-    console.log(formData);
     const newObj = {
       ...formData,
-      id: unique_id,
-      avatar: formData.avatar
-        ? typeof formData.avatar === "string"
-          ? formData.avatar
-          : URL.createObjectURL(formData.avatar)
-        : DefaultAvatar,
+      id: getUid,
+      avatar: getAvatarFromPath(formData.avatar),
     };
     setContacts([...contacts, newObj]);
     setIsAddContactFormVisible(!isAddContactFromVisible);
@@ -72,36 +51,37 @@ const ContactBook = () => {
   return (
     <div className="contact-book-container">
       <div className="contact-book-content">
-        <h1>Contact Book</h1>
-
-        {!isAddContactFromVisible && (
-          <div
-            className="contact-book-add-button"
-            onClick={handleAddContactVisibility}
-          >
-            <Button iconTxt="+" />
-          </div>
+        {!contacts ? (
+          <h1>Loading...</h1>
+        ) : (
+          <>
+            <h1>Contact Book</h1>
+            {!isAddContactFromVisible && (
+              <Button
+                iconTxt="+"
+                className="contact-book-add-button"
+                onClick={handleAddContactVisibility}
+              />
+            )}
+            {isAddContactFromVisible && (
+              <ContactForm
+                handleCancel={handleAddContactVisibility}
+                onSubmitCb={handleAddNewContact}
+                className="contact-book-add-form"
+              />
+            )}
+            {contacts.map((contact) => (
+              <Contact
+                key={contact.id}
+                data={contact}
+                onDeleteContactCb={onDeleteContactCb}
+                onEditContactCb={onEditContactCb}
+                className="contact-book-contacts"
+              />
+            ))}
+          </>
         )}
-
-        {isAddContactFromVisible && (
-          <div className="contact-book-add-form">
-            <ContactForm
-              handleCancel={handleAddContactVisibility}
-              onSubmitCb={handleAddNewContact}
-            />
-          </div>
-        )}
-
-        {contacts.map((contact) => (
-          <div className="contact-book-contacts">
-            <Contact
-              key={contact.id}
-              data={contact}
-              onDeleteContactCb={onDeleteContactCb}
-              onEditContactCb={onEditContactCb}
-            />
-          </div>
-        ))}
+        )
       </div>
     </div>
   );

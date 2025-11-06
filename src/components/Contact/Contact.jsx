@@ -1,18 +1,20 @@
 import "./index.scss";
 import arrowUpUrl from "../../assets/arrow-up.svg";
 import arrowDownUrl from "../../assets/arrow-down.svg";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import DefaultAvatar from "../../assets/default-avatar.svg";
 import ContactForm from "../ContactForm/ContactForm";
+import { getAvatarFromPath } from "../../utils/utils";
 
-const Contact = ({ data, onDeleteContactCb, onEditContactCb }) => {
+const Contact = ({
+  data,
+  onDeleteContactCb,
+  onEditContactCb,
+  className = "",
+}) => {
   const [contact, setContact] = useState(data);
   const [isCardExpanded, setIsCardExpanded] = useState(false);
   const [isEditFormVisible, setIsEditFormVisible] = useState(false);
-
-  useEffect(() => {
-    // console.log(contact);
-  });
 
   function handleToggleContactDetails(e) {
     e.preventDefault();
@@ -32,7 +34,6 @@ const Contact = ({ data, onDeleteContactCb, onEditContactCb }) => {
   }
 
   function handleEditContact(contact) {
-    console.log(contact);
     setContact(contact);
     setIsEditFormVisible(false);
     onEditContactCb(contact);
@@ -40,23 +41,13 @@ const Contact = ({ data, onDeleteContactCb, onEditContactCb }) => {
 
   function handleDeleteContact(e) {
     e.preventDefault();
-
     onDeleteContactCb(contact);
   }
 
   return (
-    <div className="contact-container">
+    <div className={`contact-container ${className}`}>
       <header className="contact-header-container">
-        <img
-          src={
-            contact.avatar
-              ? typeof contact.avatar === "string"
-                ? contact.avatar
-                : URL.createObjectURL(contact.avatar)
-              : DefaultAvatar
-          }
-          alt={contact.firstName}
-        />
+        <img src={getAvatarFromPath(contact.avatar)} alt={contact.firstName} />
         <h4>
           {contact.firstName} {contact.lastName}
         </h4>
@@ -96,13 +87,12 @@ const Contact = ({ data, onDeleteContactCb, onEditContactCb }) => {
       )}
 
       {isEditFormVisible && (
-        <div className="contact-content-form-container">
-          <ContactForm
-            onSubmitCb={handleEditContact}
-            handleCancel={handleHideEditForm}
-            contact={contact}
-          />
-        </div>
+        <ContactForm
+          onSubmitCb={handleEditContact}
+          handleCancel={handleHideEditForm}
+          contact={contact}
+          className="contact-content-form-container"
+        />
       )}
     </div>
   );
