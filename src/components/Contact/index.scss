@@ -1,0 +1,20 @@
+.contact-container {
+  color: $text-primary;
+  background-color: $bg-card-color;
+  .contact-header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: $spacing-m;
+
+    .contact-header-arrow {
+      width: 12px;
+      height: 12px;
+    }
+
+    img {
+      width: 50px;
+      height: 50px;
+    }
+  }
+}
