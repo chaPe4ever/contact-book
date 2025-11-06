@@ -1,5 +1,15 @@
+@use "variables" as *;
+
 @mixin flex-center {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+@mixin button-base {
+  padding: $spacing-s $padding-m;
+  border: none;
+  border-radius: $spacing-xs;
+  cursor: pointer;
+  font-size: $font-size-m;
 }
