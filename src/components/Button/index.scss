@@ -1,0 +1,22 @@
+.add-button {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: 4px solid $secondary-darker-color;
+  background-color: $bg-btn-color;
+  cursor: pointer;
+
+  &:hover {
+    background-color: $secondary-color;
+    .plus-icon {
+      color: $text-inverse-color;
+    }
+  }
+
+  .plus-icon {
+    font-size: $font-size-xl;
+    font-weight: bold;
+    color: $secondary-darker-color;
+    line-height: 1;
+  }
+}

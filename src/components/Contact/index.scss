@@ -1,0 +1,54 @@
+.contact-container {
+  color: $text-primary-color;
+  background-color: $bg-card-color;
+  margin-bottom: $spacing-xl;
+  border-radius: $radius-m;
+  padding: $spacing-xl;
+
+  .contact-header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: $font-size-xl;
+    font-weight: bolder;
+
+    .contact-header-arrow {
+      cursor: pointer;
+    }
+
+    img {
+      width: 75px;
+      height: 75px;
+    }
+  }
+
+  .contact-togglable {
+    margin-top: $spacing-xl;
+
+    .contact-content-container {
+      font-size: $font-size-l;
+      margin-bottom: $spacing-2xl;
+      display: flex;
+      flex-direction: column;
+      gap: $spacing-s;
+
+      strong {
+        color: $text-secondary-color;
+      }
+
+      span {
+        font-weight: bold;
+      }
+    }
+
+    .contact-controlls-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+  }
+  .contact-content-form-container {
+    margin: -$spacing-xl;
+    padding-top: $spacing-xl;
+  }
+}

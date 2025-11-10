@@ -1,0 +1,22 @@
+.app {
+  width: 100vw;
+  height: 100vh;
+  margin: 0;
+  box-sizing: border-box;
+  padding: 0;
+}
+
+.danger-button {
+  @include button-base;
+  background-color: $danger-color;
+}
+
+.primary-button {
+  @include button-base;
+  background-color: $secondary-color;
+}
+
+.positive-button {
+  @include button-base;
+  background-color: $positive-color;
+}

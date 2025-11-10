@@ -1,0 +1,30 @@
+@use "variables" as *;
+
+@mixin flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@mixin button-base {
+  padding: $spacing-s $padding-m;
+  border: none;
+  border-radius: $spacing-xs;
+  cursor: pointer;
+  font-size: $font-size-l;
+  font-weight: 700;
+  color: $primary-color;
+}
+
+@mixin input-base {
+  border: none;
+  border-bottom: 1px solid $primary-color;
+  background-color: $bg-card-color;
+  color: $text-primary-color;
+  appearance: none;
+  outline: none;
+  margin: 0;
+  padding: $spacing-s;
+  border-radius: 0;
+  font-size: $font-size-l;
+}

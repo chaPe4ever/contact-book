@@ -1,0 +1,25 @@
+.floating-input {
+  position: relative;
+  margin-bottom: $spacing-l;
+
+  input {
+    @include input-base;
+    width: 100%;
+
+    padding: $spacing-m 0;
+
+    &:focus {
+      border-bottom: 2px solid $secondary-darker-color;
+      outline: none;
+    }
+  }
+
+  label {
+    position: absolute;
+    left: 0;
+    top: -10px;
+    color: $secondary-darker-color;
+    font-size: 12px;
+    pointer-events: none;
+  }
+}
